@@ -1,0 +1,15 @@
+/* ✅ 1. Google Font must be FIRST */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&display=swap');
+
+/* ✅ 2. Tailwind import only ONCE */
+@import "tailwindcss";
+
+/* ✅ 3. Theme config */
+@theme {
+  --font-sans: 'Inter', sans-serif;
+}
+
+/* ✅ 4. Custom styles */
+body {
+  @apply bg-[#EAEAEA] text-gray-900 font-sans;
+}
