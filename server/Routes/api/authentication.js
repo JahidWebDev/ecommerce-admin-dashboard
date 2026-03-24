@@ -3,7 +3,7 @@ const registrationControllers = require("../../controllers/registrationControlle
 const router = express.Router();
 
 
-router.get("/registration", registrationControllers ) 
+router.post("/registration", registrationControllers ) 
 
 
 
