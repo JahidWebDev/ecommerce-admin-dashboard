@@ -1,7 +1,10 @@
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const emailVerification = require("../helpers/emailVerification");
 const emailValidation = require("../helpers/emailvalidation");
 const userSchema = require("../models/userSchema");
+
+
 
 async function registrationControllers(req, res) {
   const { firstName, lastName, email, password } = req.body;
@@ -25,6 +28,7 @@ async function registrationControllers(req, res) {
     return res.status(400).json({ error: "Password is required" });
   }
   const otp = crypto.randomInt(100000, 999999).toString();
+  const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
   bcrypt.hash(password, 10, function (err, hash) {
     if (err) {
       return res.status(500).json({
@@ -38,8 +42,9 @@ async function registrationControllers(req, res) {
         email,
         password: hash,
         otp,
+        otpExpiry 
       });
-
+      emailVerification(email, otp);
       user.save();
       console.log(user);
 
